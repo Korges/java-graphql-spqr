@@ -16,9 +16,9 @@ insert into SUBJECT values(1, 'Transmutation', 1);
 insert into SUBJECT values(2, 'Potions', 2);
 insert into SUBJECT values(3, 'Defense against Black Magic', 2);
 
-insert into LECTURE values(1, 'Forbidden spells', 2);
-insert into LECTURE values(2, 'Dangerous animals', 2);
-insert into LECTURE values(3, 'Dragons', 2);
+insert into LECTURE values(1, 'Forbidden spells', 3);
+insert into LECTURE values(2, 'Dangerous animals', 3);
+insert into LECTURE values(3, 'Dragons', 3);
 insert into LECTURE values(4, 'Multi-juice potion', 2);
 insert into LECTURE values(5, 'Bezoar', 2);
 insert into LECTURE values(6, 'Felix Felicis', 2);
