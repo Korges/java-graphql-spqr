@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <model-mapper-version>2.3.0</model-mapper-version>
     </properties>
 
     <dependencies>
@@ -57,6 +58,11 @@
             <groupId>com.graphql-java</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
             <version>5.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${model-mapper-version}</version>
         </dependency>
     </dependencies>
 
