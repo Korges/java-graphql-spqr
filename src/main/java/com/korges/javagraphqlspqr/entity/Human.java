@@ -1,4 +1,4 @@
-package com.korges.javagraphqlspqr.pojo;
+package com.korges.javagraphqlspqr.entity;
 
 import io.leangen.graphql.annotations.types.GraphQLInterface;
 

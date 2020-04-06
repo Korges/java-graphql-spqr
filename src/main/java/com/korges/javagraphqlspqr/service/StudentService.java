@@ -1,7 +1,7 @@
 package com.korges.javagraphqlspqr.service;
 
-import com.korges.javagraphqlspqr.pojo.Student;
-import com.korges.javagraphqlspqr.pojo.Subject;
+import com.korges.javagraphqlspqr.entity.Student;
+import com.korges.javagraphqlspqr.entity.Subject;
 import com.korges.javagraphqlspqr.repository.StudentRepository;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;

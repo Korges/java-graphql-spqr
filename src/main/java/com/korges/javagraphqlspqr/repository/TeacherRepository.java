@@ -1,7 +1,7 @@
 package com.korges.javagraphqlspqr.repository;
 
-import com.korges.javagraphqlspqr.pojo.Subject;
-import com.korges.javagraphqlspqr.pojo.Teacher;
+import com.korges.javagraphqlspqr.entity.Subject;
+import com.korges.javagraphqlspqr.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

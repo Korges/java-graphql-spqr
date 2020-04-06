@@ -1,11 +1,10 @@
-package com.korges.javagraphqlspqr.pojo;
+package com.korges.javagraphqlspqr.entity;
 
-import io.leangen.graphql.annotations.GraphQLQuery;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,15 +20,8 @@ public class Lecture {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     private String description;
-
     @ManyToOne
     private Subject subject;
-
-    public Long getId() {
-        return id;
-    }
 
 }

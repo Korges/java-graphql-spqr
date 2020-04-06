@@ -1,9 +1,9 @@
 package com.korges.javagraphqlspqr.service;
 
-import com.korges.javagraphqlspqr.pojo.Lecture;
-import com.korges.javagraphqlspqr.pojo.Subject;
+import com.korges.javagraphqlspqr.entity.Lecture;
+import com.korges.javagraphqlspqr.entity.Subject;
 import com.korges.javagraphqlspqr.repository.LectureRepository;
-import graphql.relay.PageInfo;
+import com.korges.javagraphqlspqr.repository.SubjectRepository;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLEnvironment;
@@ -16,12 +16,10 @@ import io.leangen.graphql.execution.relay.generic.PageFactory;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +29,7 @@ import java.util.Optional;
 public class LectureService {
 
     private final LectureRepository repository;
+    private final SubjectRepository subjectRepository;
 
     @GraphQLQuery(name = "lectures", description = "aaaaaa")
     public List<Lecture> findAllLectures() {
@@ -59,8 +58,8 @@ public class LectureService {
         return repository.findSubjectByGivenLecture(lecture.getId());
     }
 
-    @GraphQLMutation(name = "saveLecture")
-    public Lecture saveLecture(@GraphQLArgument(name = "lecture") Lecture lecture) {
+    @GraphQLMutation(name = "createLecture", description = "Creates a lecture entry")
+    public Lecture createLecture(@GraphQLArgument(name = "lecture", description = "The lecture object") @GraphQLNonNull @Valid Lecture lecture) {
         return repository.save(lecture);
     }
 }

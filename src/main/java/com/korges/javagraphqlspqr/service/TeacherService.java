@@ -1,7 +1,7 @@
 package com.korges.javagraphqlspqr.service;
 
-import com.korges.javagraphqlspqr.pojo.Subject;
-import com.korges.javagraphqlspqr.pojo.Teacher;
+import com.korges.javagraphqlspqr.entity.Subject;
+import com.korges.javagraphqlspqr.entity.Teacher;
 import com.korges.javagraphqlspqr.repository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
