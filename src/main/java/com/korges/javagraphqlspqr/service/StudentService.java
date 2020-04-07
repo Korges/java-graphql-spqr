@@ -42,4 +42,17 @@ public class StudentService {
     public Student save(Student student) {
         return this.studentRepository.save(student);
     }
+
+    @GraphQLMutation(name = "deleteStudent", description = "Deletes the given Student")
+    public String deleteStudent(@GraphQLArgument(name = "id") @GraphQLNonNull Long id) {
+        return studentRepository.findById(id)
+                .map(this::deleteStudent)
+                .orElseThrow(() -> new EntityNotFoundException("Unable to find Student by given id: " + id));
+    }
+
+    private String deleteStudent(Student student) {
+        studentRepository.delete(student);
+        return "Successfully deleted Student with id: " + student.getId();
+    }
+
 }
