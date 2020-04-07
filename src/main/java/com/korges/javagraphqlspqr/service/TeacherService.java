@@ -51,10 +51,9 @@ public class TeacherService {
     }
 
     private String deleteTeacher(Teacher teacher) {
-        subjectRepository.findAllByTeacher(teacher)
-                .forEach(subject -> subject.setTeacher(null));
-
+        teacher.detachTeacher();
         teacherRepository.delete(teacher);
-        return "Successfully deleted Student with id: " + teacher.getId();
+
+        return "Successfully deleted Teacher with id: " + teacher.getId();
     }
 }

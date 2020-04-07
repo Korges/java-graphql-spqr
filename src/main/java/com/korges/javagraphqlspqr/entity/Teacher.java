@@ -26,4 +26,8 @@ public class Teacher implements Human {
     private String lastName;
     @OneToMany
     private Set<Subject> subjectList;
+
+    public void detachTeacher() {
+        subjectList.forEach(subject -> subject.setTeacher(null));
+    }
 }

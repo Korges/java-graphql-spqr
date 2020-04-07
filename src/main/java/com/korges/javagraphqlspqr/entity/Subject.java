@@ -28,5 +28,6 @@ public class Subject {
     private Set<Lecture> lectureList;
     @ManyToOne
     private Teacher teacher;
+
 }
 
