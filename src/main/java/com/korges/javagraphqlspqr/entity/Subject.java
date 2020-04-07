@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,10 +25,14 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private Set<Lecture> lectureList;
     @ManyToOne
     private Teacher teacher;
+
+    public void detachSubject(Subject toRemove) {
+        this.teacher.getSubjectList().remove(toRemove);
+    }
 
 }
 

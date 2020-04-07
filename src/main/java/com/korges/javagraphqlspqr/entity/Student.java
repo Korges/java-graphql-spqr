@@ -27,4 +27,8 @@ public class Student implements Human {
     @ManyToMany
     private Set<Subject> subjectList;
 
+    public void detachSubject(Subject toRemove) {
+        this.subjectList.remove(toRemove);
+    }
+
 }
