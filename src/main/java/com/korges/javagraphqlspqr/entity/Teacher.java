@@ -28,6 +28,6 @@ public class Teacher implements Human {
     private Set<Subject> subjectList;
 
     public void detachTeacher() {
-        subjectList.forEach(subject -> subject.setTeacher(null));
+        this.subjectList.forEach(subject -> subject.setTeacher(null));
     }
 }

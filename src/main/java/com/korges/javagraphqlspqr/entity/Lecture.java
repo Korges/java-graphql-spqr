@@ -23,4 +23,8 @@ public class Lecture {
     @ManyToOne
     private Subject subject;
 
+    public void detachLecture(Lecture toRemove) {
+        this.subject.getLectureList().remove(toRemove);
+    }
+
 }

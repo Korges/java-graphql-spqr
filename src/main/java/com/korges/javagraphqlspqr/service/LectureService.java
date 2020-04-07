@@ -73,4 +73,18 @@ public class LectureService {
         lecture.setSubject(subject);
         return lectureRepository.save(lecture);
     }
+
+    @GraphQLMutation(name = "deleteLecture", description = "Deletes the given Lecture")
+    public String deleteLecture(@GraphQLArgument(name = "id") @GraphQLNonNull Long id) {
+        return lectureRepository.findById(id)
+                .map(this::deleteLecture)
+                .orElseThrow(() -> new EntityNotFoundException("Unable to find Lecture by given id: " + id));
+    }
+
+    private String deleteLecture(Lecture lecture) {
+        lecture.detachLecture(lecture);
+        lectureRepository.delete(lecture);
+
+        return "Successfully deleted Lecture with id: " + lecture.getId();
+    }
 }
