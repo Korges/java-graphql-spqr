@@ -1,7 +1,6 @@
 package com.korges.javagraphqlspqr.service;
 
 import com.korges.javagraphqlspqr.entity.Student;
-import com.korges.javagraphqlspqr.entity.Subject;
 import com.korges.javagraphqlspqr.repository.StudentRepository;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @GraphQLApi
 @Service
@@ -22,7 +20,7 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    @GraphQLQuery(name = "students")
+    @GraphQLQuery(name = "findAllStudents", description = "Retrieves list of all Teachers")
     public List<Student> findAllStudents() {
         return studentRepository.findAll();
     }
@@ -33,13 +31,13 @@ public class StudentService {
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find Student by given id: " + id));
     }
 
-    @GraphQLQuery(name = "subject")
-    public List<Subject> findSubjectListByGivenStudent(Student student) {
-        return studentRepository.findSubjectListByStudent(student.getId());
-    }
+//    @GraphQLQuery(name = "subjectList")
+//    public List<Subject> findSubjectListByGivenStudent(@GraphQLContext Student student) {
+//        return studentRepository.findSubjectListByStudent(student.getId());
+//    }
 
-    @GraphQLMutation
-    public Student save(Student student) {
+    @GraphQLMutation(name = "addStudent", description = "Add new Student")
+    public Student addStudent(Student student) {
         return this.studentRepository.save(student);
     }
 
