@@ -43,18 +43,34 @@ public class StudentService {
 //        return studentRepository.findSubjectListByStudent(student.getId());
 //    }
 
-    @GraphQLMutation(name = "assignSubjectToStudent", description = "Assign new Subject to Student")
-    public Student assignSubject(@GraphQLArgument(name = "studentId") @GraphQLNonNull Long studentId,
-                                 @GraphQLArgument(name = "subjectId") @GraphQLNonNull Long subjectId) {
+    @GraphQLMutation(name = "enrollStudentForSubject", description = "Enroll the Student for The Subject")
+    public Student enrollStudentForSubject(@GraphQLArgument(name = "studentId") @GraphQLNonNull Long studentId,
+                                          @GraphQLArgument(name = "subjectId") @GraphQLNonNull Long subjectId) {
         return subjectRepository.findById(subjectId)
-                .map(subject -> assignSubject(subject, studentId))
+                .map(subject -> enrollStudent(subject, studentId))
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find Subject by given id: " + subjectId));
     }
 
-    public Student assignSubject(Subject subject, Long studentId) {
+    private Student enrollStudent(Subject subject, Long studentId) {
         return studentRepository.findById(studentId)
                 .map(student -> {
                     student.getSubjectList().add(subject);
+                    return studentRepository.save(student);
+                }).orElseThrow(() -> new EntityNotFoundException("Unable to find Student by given id: " + studentId));
+    }
+
+    @GraphQLMutation(name = "unsubscribeStudentFromSubject", description = "Unsubscribe the Student from the Subject")
+    public Student unsubscribeStudentFromSubject(@GraphQLArgument(name = "studentId") @GraphQLNonNull Long studentId,
+                                                 @GraphQLArgument(name = "subjectId") @GraphQLNonNull Long subjectId) {
+        return subjectRepository.findById(subjectId)
+                .map(subject -> unsubscribeSubject(subject, studentId))
+                .orElseThrow(() -> new EntityNotFoundException("Unable to find Subject by given id: " + subjectId));
+    }
+
+    private Student unsubscribeSubject(Subject subject, Long studentId) {
+        return studentRepository.findById(studentId)
+                .map(student -> {
+                    student.getSubjectList().remove(subject);
                     return studentRepository.save(student);
                 }).orElseThrow(() -> new EntityNotFoundException("Unable to find Student by given id: " + studentId));
     }
