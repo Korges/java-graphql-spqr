@@ -33,11 +33,6 @@ public class TeacherService {
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find Teacher by given id: " + id));
     }
 
-//    @GraphQLQuery
-//    public List<Subject> findSubjectListByGivenTeacher(@GraphQLContext Teacher teacher) {
-//        return this.teacherRepository.findSubjectListByGivenTeacher(teacher.getId());
-//    }
-
     @GraphQLMutation(name = "addTeacher", description = "Add new Teacher")
     public Teacher addTeacher(@GraphQLArgument(name = "lecture", description = "The teacher object") Teacher teacher) {
         return this.teacherRepository.save(teacher);

@@ -38,11 +38,6 @@ public class StudentService {
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find Student by given id: " + id));
     }
 
-//    @GraphQLQuery(name = "subjectList")
-//    public List<Subject> findSubjectListByGivenStudent(@GraphQLContext Student student) {
-//        return studentRepository.findSubjectListByStudent(student.getId());
-//    }
-
     @GraphQLMutation(name = "enrollStudentForSubject", description = "Enroll the Student for The Subject")
     public Student enrollStudentForSubject(@GraphQLArgument(name = "studentId") @GraphQLNonNull Long studentId,
                                           @GraphQLArgument(name = "subjectId") @GraphQLNonNull Long subjectId) {

@@ -36,14 +36,6 @@ public class SubjectService {
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find Subject with id: " + id));
     }
 
-//    public List<Lecture> findLectureListByGivenSubject(Subject subject) {
-//        return this.subjectRepository.findLectureListByGivenSubject(subject.getId());
-//    }
-
-//    public Teacher findTeacherByGivenSubject(Subject subject) {
-//        return this.subjectRepository.findTeacherByGivenSubject(subject.getId());
-//    }
-
     @GraphQLMutation(name = "createSubject", description = "Creates a Subject entry")
     public Subject createSubject(@GraphQLArgument(name = "subjectTitle") @GraphQLNonNull String subjectTitle) {
         Subject subject = new Subject();
