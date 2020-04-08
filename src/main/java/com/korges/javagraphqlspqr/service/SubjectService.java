@@ -44,7 +44,7 @@ public class SubjectService {
     }
 
     @Transactional
-    @GraphQLMutation(name = "deleteSubject", description = "Deleted the given Subject")
+    @GraphQLMutation(name = "deleteSubject", description = "Deletes the given Subject")
     public String deleteSubject(@GraphQLArgument(name = "id") @GraphQLNonNull Long id) {
         return subjectRepository.findById(id)
                 .map(this::deleteSubject)

@@ -29,6 +29,11 @@ public class Subject {
     @ManyToOne
     private Teacher teacher;
 
+    public void unsubscribeTeacher(Subject toUnsubscribe) {
+        this.teacher.getSubjectList().remove(toUnsubscribe);
+        this.teacher = null;
+    }
+
     public void detachSubject(Subject toRemove) {
         this.teacher.getSubjectList().remove(toRemove);
     }

@@ -26,6 +26,11 @@ public class Teacher implements Human {
     @OneToMany
     private Set<Subject> subjectList;
 
+    public void assignTeacher(Subject newsubject) {
+        this.subjectList.add(newsubject);
+        newsubject.setTeacher(this);
+    }
+
     public void detachTeacher() {
         this.subjectList.forEach(subject -> subject.setTeacher(null));
     }
