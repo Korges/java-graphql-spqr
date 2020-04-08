@@ -14,8 +14,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@Setter @Getter
 @Entity
 public class Teacher implements Human {
 

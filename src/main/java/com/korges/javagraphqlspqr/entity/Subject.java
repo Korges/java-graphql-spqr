@@ -16,8 +16,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@Setter @Getter
 @Entity
 public class Subject {
 
@@ -35,4 +34,3 @@ public class Subject {
     }
 
 }
-
