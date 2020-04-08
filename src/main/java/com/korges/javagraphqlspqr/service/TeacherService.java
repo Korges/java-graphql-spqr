@@ -52,6 +52,16 @@ public class TeacherService {
                 }).orElseThrow(() -> new EntityNotFoundException("Unable to find Teacher by given id: " + teacherId));
     }
 
+    @GraphQLMutation(name = "unsubscribeSubjectFromTeacher", description = "Unsubscribe given Subject from the Teacher")
+    public String unsubscribeSubjectFromTeacher(@GraphQLArgument(name = "subjectId") @GraphQLNonNull Long subjectId) {
+        return subjectRepository.findById(subjectId)
+                .map(subject -> {
+                    subject.unsubscribeTeacher(subject);
+                    subjectRepository.save(subject);
+                    return "Successfully unsubscribed Subject with id: " + subjectId;
+                }).orElseThrow(() -> new EntityNotFoundException("Unable to find Subject by given id: " + subjectId));
+    }
+
     @GraphQLMutation(name = "addTeacher", description = "Add new Teacher")
     public Teacher addTeacher(@GraphQLArgument(name = "lecture", description = "The teacher object") Teacher teacher) {
         return this.teacherRepository.save(teacher);
