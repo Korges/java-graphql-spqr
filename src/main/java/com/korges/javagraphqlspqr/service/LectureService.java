@@ -34,7 +34,8 @@ public class LectureService {
 
     @GraphQLQuery(name = "findAllLecturesByGivenSubject", description = "Retrieves list of all Lectures by given Subject")
     public List<Lecture> findAllLecturesByGivenSubject(@GraphQLNonNull Long id) {
-        return subjectRepository.findById(id).map(lectureRepository::findAllBySubject)
+        return subjectRepository.findById(id)
+                .map(lectureRepository::findAllBySubject)
                 .orElseThrow(() -> new EntityNotFoundException("Unable to find Lectures by given Subject id: " + id));
     }
 

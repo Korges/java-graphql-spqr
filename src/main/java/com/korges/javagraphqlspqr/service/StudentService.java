@@ -1,5 +1,6 @@
 package com.korges.javagraphqlspqr.service;
 
+import com.korges.javagraphqlspqr.dto.input.PersonInput;
 import com.korges.javagraphqlspqr.entity.Student;
 import com.korges.javagraphqlspqr.repository.StudentRepository;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -8,9 +9,11 @@ import io.leangen.graphql.annotations.GraphQLNonNull;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 
 @GraphQLApi
@@ -18,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService {
 
+    private final ModelMapper modelMapper;
     private final StudentRepository studentRepository;
 
     @GraphQLQuery(name = "findAllStudents", description = "Retrieves list of all Teachers")
@@ -37,9 +41,10 @@ public class StudentService {
 //    }
 
     @GraphQLMutation(name = "addStudent", description = "Add new Student")
-    public Student addStudent(Student student) {
-        return this.studentRepository.save(student);
+    public Student addStudent(@GraphQLArgument(name = "student", description = "The Student object") @GraphQLNonNull @Valid PersonInput person) {
+        return this.studentRepository.save(modelMapper.map(person, Student.class));
     }
+
 
     @GraphQLMutation(name = "deleteStudent", description = "Deletes the given Student")
     public String deleteStudent(@GraphQLArgument(name = "id") @GraphQLNonNull Long id) {
