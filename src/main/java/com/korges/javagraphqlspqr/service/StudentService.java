@@ -2,7 +2,9 @@ package com.korges.javagraphqlspqr.service;
 
 import com.korges.javagraphqlspqr.dto.input.PersonInput;
 import com.korges.javagraphqlspqr.entity.Student;
+import com.korges.javagraphqlspqr.entity.Subject;
 import com.korges.javagraphqlspqr.repository.StudentRepository;
+import com.korges.javagraphqlspqr.repository.SubjectRepository;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLNonNull;
@@ -23,6 +25,7 @@ public class StudentService {
 
     private final ModelMapper modelMapper;
     private final StudentRepository studentRepository;
+    private final SubjectRepository subjectRepository;
 
     @GraphQLQuery(name = "findAllStudents", description = "Retrieves list of all Teachers")
     public List<Student> findAllStudents() {
@@ -39,6 +42,22 @@ public class StudentService {
 //    public List<Subject> findSubjectListByGivenStudent(@GraphQLContext Student student) {
 //        return studentRepository.findSubjectListByStudent(student.getId());
 //    }
+
+    @GraphQLMutation(name = "assignSubjectToStudent", description = "Assign new Subject to Student")
+    public Student assignSubject(@GraphQLArgument(name = "studentId") @GraphQLNonNull Long studentId,
+                                 @GraphQLArgument(name = "subjectId") @GraphQLNonNull Long subjectId) {
+        return subjectRepository.findById(subjectId)
+                .map(subject -> assignSubject(subject, studentId))
+                .orElseThrow(() -> new EntityNotFoundException("Unable to find Subject by given id: " + subjectId));
+    }
+
+    public Student assignSubject(Subject subject, Long studentId) {
+        return studentRepository.findById(studentId)
+                .map(student -> {
+                    student.getSubjectList().add(subject);
+                    return studentRepository.save(student);
+                }).orElseThrow(() -> new EntityNotFoundException("Unable to find Student by given id: " + studentId));
+    }
 
     @GraphQLMutation(name = "addStudent", description = "Add new Student")
     public Student addStudent(@GraphQLArgument(name = "student", description = "The Student object") @GraphQLNonNull @Valid PersonInput person) {
