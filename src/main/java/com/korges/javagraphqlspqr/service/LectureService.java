@@ -40,9 +40,9 @@ public class LectureService {
     }
 
     @GraphQLQuery(name = "findLecture", description = "Retrieve single lecture by given id")
-    public Lecture findLectureById(@GraphQLNonNull Long id) {
+    public Lecture findLectureById(@GraphQLArgument(name = "id") @GraphQLNonNull Long id) {
         return lectureRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Unable to find Subject with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Unable to find Lecture with id: " + id));
     }
 
     @GraphQLQuery
@@ -62,7 +62,7 @@ public class LectureService {
         return lectureRepository.findSubjectByGivenLecture(lecture.getId());
     }
 
-    @GraphQLMutation(name = "createLecture", description = "Creates a lecture entry")
+    @GraphQLMutation(name = "createLecture", description = "Creates a Lecture entry")
     public Lecture createLecture(@GraphQLArgument(name = "lecture", description = "The lecture object") @GraphQLNonNull @Valid LectureInput lectureInput) {
         return subjectRepository.findById(lectureInput.getSubject())
                 .map(subject -> saveLecture(subject, lectureInput))

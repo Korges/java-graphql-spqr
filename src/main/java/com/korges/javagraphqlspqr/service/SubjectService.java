@@ -30,6 +30,12 @@ public class SubjectService {
         return subjectRepository.findAll();
     }
 
+    @GraphQLQuery(name = "findSubject", description = "Retrieve single Subject by given id")
+    public Subject findLectureById(@GraphQLArgument(name = "id") @GraphQLNonNull Long id) {
+        return subjectRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Unable to find Subject with id: " + id));
+    }
+
 //    public List<Lecture> findLectureListByGivenSubject(Subject subject) {
 //        return this.subjectRepository.findLectureListByGivenSubject(subject.getId());
 //    }
@@ -38,7 +44,10 @@ public class SubjectService {
 //        return this.subjectRepository.findTeacherByGivenSubject(subject.getId());
 //    }
 
-    public Subject save(Subject subject) {
+    @GraphQLMutation(name = "createSubject", description = "Creates a Subject entry")
+    public Subject createSubject(@GraphQLArgument(name = "subjectTitle") @GraphQLNonNull String subjectTitle) {
+        Subject subject = new Subject();
+        subject.setTitle(subjectTitle);
         return this.subjectRepository.save(subject);
     }
 
